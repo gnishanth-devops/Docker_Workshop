@@ -1,5 +1,39 @@
-node_modules
-.git
-.gitignore
+# Dependencies
+node_modules/
+
+# Docker files
 Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Git
+.git/
+.gitignore
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Environment variables
+.env
+.env.*
+
+# Test files
+spec/
+
+# Editor / OS artifacts
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Runtime data
+pids/
+*.pid
+
+# Docs
 README.md
+

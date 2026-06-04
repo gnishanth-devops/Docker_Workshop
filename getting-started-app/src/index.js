@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const app = express();
 const db = require('./persistence');
 const getItems = require('./routes/getItems');
@@ -6,6 +7,7 @@ const addItem = require('./routes/addItem');
 const updateItem = require('./routes/updateItem');
 const deleteItem = require('./routes/deleteItem');
 
+app.use(morgan('combined'));
 app.use(express.json());
 app.use(express.static(__dirname + '/static'));
 
