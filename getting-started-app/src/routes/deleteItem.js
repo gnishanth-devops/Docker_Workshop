@@ -1,9 +1,6 @@
-app.delete('/items', async (req, res) => {
-    const ids = req.body;
+const db = require('../persistence');
 
-    for (const id of ids) {
-        await db.removeItem(id);
-    }
-
+module.exports = async (req, res) => {
+    await db.removeItem(req.params.id);
     res.sendStatus(200);
-});
+};
