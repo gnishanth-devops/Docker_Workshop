@@ -1,0 +1,33 @@
+services:
+  app:
+    image: node:24-alpine
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - 8080:3000
+    working_dir: /app
+    volumes:
+      - "./:/app"
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: root
+      MYSQL_PASSWORD: secret
+      MYSQL_DB: todos
+    network:
+      todo-app
+
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - todo-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: todos
+    network:
+      todo-app
+
+volumes:
+  todo-mysql-data:
+
+networks:
+  todo-app:
+   type: bridged
