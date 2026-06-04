@@ -30,4 +30,4 @@ volumes:
 
 networks:
   todo-app:
-   driver: bridged
+   driver: bridge
