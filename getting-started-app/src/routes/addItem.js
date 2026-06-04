@@ -1,13 +1,22 @@
 const db = require('../persistence');
-const {v4 : uuid} = require('uuid');
+const { v4: uuid } = require('uuid');
 
 module.exports = async (req, res) => {
-    const item = {
-        id: uuid(),
-        name: req.body.name,
-        completed: false,
-    };
+    const items = Array.isArray(req.body)
+        ? req.body.map(item => ({
+            id: uuid(),
+            name: item.name,
+            completed: false
+        }))
+        : [{
+            id: uuid(),
+            name: req.body.name,
+            completed: false
+        }];
 
-    await db.storeItem(item);
-    res.send(item);
+    for (const item of items) {
+        await db.storeItem(item);
+    }
+
+    res.send(items);
 };
