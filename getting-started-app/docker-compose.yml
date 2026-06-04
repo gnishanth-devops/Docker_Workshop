@@ -3,15 +3,18 @@ services:
     image: node:24-alpine
     command: sh -c "npm install && npm run dev"
     ports:
-      - 8080:3000
+      - "8080:3000"
     working_dir: /app
     volumes:
-      - "./:/app"
+      - ./:/app
     environment:
       MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
       MYSQL_DB: todos
+    depends_on:
+      mysql:
+        condition: service_healthy
     networks:
       - todo-app
 
@@ -22,12 +25,18 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: todos
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-psecret"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     networks:
-     - todo-app
+      - todo-app
 
 volumes:
   todo-mysql-data:
 
 networks:
   todo-app:
-   driver: bridge
+    driver: bridge
