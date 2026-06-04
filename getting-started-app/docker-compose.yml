@@ -12,8 +12,8 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: secret
       MYSQL_DB: todos
-    network:
-      todo-app
+    networks:
+      - todo-app
 
   mysql:
     image: mysql:8.0
@@ -22,12 +22,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: secret
       MYSQL_DATABASE: todos
-    network:
-      todo-app
+    networks:
+     - todo-app
 
 volumes:
   todo-mysql-data:
 
 networks:
   todo-app:
-   type: bridged
+   driver: bridged
